@@ -8,11 +8,14 @@ import java.util.Optional;
 
 public interface IVocabularyService {
     List<Vocabulary> findAll();
-    public List<Vocabulary> getVocabularyByLevel(String level);
+    List<Vocabulary> getVocabularyByLevel(String level);
+    List<Vocabulary> getVocabularyByLevelAndCategoryVocabulary(String level,String categoryVocabulary);
+
     Vocabulary save(Vocabulary vocabulary);
     Vocabulary findById(Long vocabularyId) throws VocabularyNotFoundException;
     Vocabulary getVocabularyByWord(String word);
     boolean isWordUnique(Long id,String word);
 
     void deleteVocabulary(Vocabulary vocabulary);
+
 }

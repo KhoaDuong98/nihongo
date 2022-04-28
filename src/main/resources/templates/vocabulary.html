@@ -112,7 +112,7 @@ body {
 
 <div class="container-fluid">
     <div>
-        <h1 class="center">Từ vựng [[${level}]]</h1>
+        <h1 class="center">Từ vựng [[${categoryVocabulary}]] [[${level}]]</h1>
 
     </div>
 
@@ -120,6 +120,7 @@ body {
         <a href="/Nihongo/admin/vocabulary/add" class="btn btn-secondary">Thêm từ vựng</a>
     </div>
 
+    <div th:if="${message != null}" class="alert alert-success text-center">[[${message}]]</div>
 
     <div style="padding-top: 15px">
         <table class="table table-hover">

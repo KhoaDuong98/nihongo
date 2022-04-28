@@ -13,12 +13,13 @@
     <div>
         <h1 class="center">Thêm từ vựng</h1>
     </div>
+
     <div style="padding-top: 15px">
         <form  th:action="@{/admin/vocabulary/save}" th:object="${vocabulary}"
               style="max-width: 700px; margin: 0 auto" method="post"onsubmit="return checkWordUnique(this);">
             <input type="hidden" th:field="*{id}">
 
-            <div class="border border-secondary rounded p-3">
+      s      <div class="border border-secondary rounded p-3">
 
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label">Từ vựng:</label>
@@ -71,6 +72,16 @@
                         </select>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Category Vocabulary:</label>
+                    <div class="col-sm-8">
+                        <select th:field="*{categoryVocabulary}" class="form-control">
+                            <option value="">Select</option>
+                            <option th:each="a:${listCateVocabulary}" th:value="${a}"
+                                    th:text="${a}"></option>
+                        </select>
+                    </div>
+                </div>
                 <div class="text-center">
                     <input type="submit" value="Save" class="btn btn-dark m-3"/>
                     <input  type="button" value="Cancel" onclick = "history.back()" class="btn btn-secondary" id="buttonCancel"/>
@@ -81,9 +92,10 @@
         <div th:replace="fragments :: modal"/>
 
     </div>
-    <div th:replace="fragments :: footer"/>
 
 </div>
+<div th:replace="fragments :: footer"/>
+
 
 <script type="text/javascript">
 

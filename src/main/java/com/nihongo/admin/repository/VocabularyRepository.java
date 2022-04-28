@@ -14,5 +14,7 @@ public interface VocabularyRepository extends CrudRepository<Vocabulary,Long> {
 
     Vocabulary findVocabularyByWord(String word);
 
+    public List<Vocabulary> findVocabularyByLevelAndCategoryVocabulary(String level,String categoryVocabulary);
+
 
 }

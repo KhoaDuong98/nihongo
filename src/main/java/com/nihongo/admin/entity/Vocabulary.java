@@ -10,7 +10,6 @@ public class Vocabulary {
     private Long id;
 
 
-
     @Column(length = 40, nullable = false, unique = true)
     private String word;
 
@@ -31,6 +30,9 @@ public class Vocabulary {
 
     @Column(length = 40, nullable = false)
     private String level;
+
+    @Column(name = "category_vocabulary", length = 40, nullable = false)
+    private String categoryVocabulary;
 
     @Override
     public int hashCode() {
@@ -109,5 +111,11 @@ public class Vocabulary {
         this.audio = audio;
     }
 
+    public String getCategoryVocabulary() {
+        return categoryVocabulary;
+    }
 
+    public void setCategoryVocabulary(String categoryVocabulary) {
+        this.categoryVocabulary = categoryVocabulary;
+    }
 }

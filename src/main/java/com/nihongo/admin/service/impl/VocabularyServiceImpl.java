@@ -1,17 +1,17 @@
-package com.nihongo.admin.service;
+package com.nihongo.admin.service.impl;
 
 import com.nihongo.admin.entity.Vocabulary;
 import com.nihongo.admin.exception.VocabularyNotFoundException;
 import com.nihongo.admin.repository.VocabularyRepository;
+import com.nihongo.admin.service.IVocabularyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
-public class VocabularyService implements IVocabularyService{
+public class VocabularyServiceImpl implements IVocabularyService {
     @Autowired
     private VocabularyRepository repo;
 
@@ -23,6 +23,11 @@ public class VocabularyService implements IVocabularyService{
     @Override
     public List<Vocabulary> getVocabularyByLevel(String level) {
         return repo.getVocabularyByLevel(level);
+    }
+
+    @Override
+    public List<Vocabulary> getVocabularyByLevelAndCategoryVocabulary(String level, String categoryVocabulary) {
+        return repo.findVocabularyByLevelAndCategoryVocabulary(level,categoryVocabulary);
     }
 
     @Override

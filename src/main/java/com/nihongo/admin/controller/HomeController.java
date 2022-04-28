@@ -2,8 +2,9 @@ package com.nihongo.admin.controller;
 
 
 import com.nihongo.admin.repository.VocabularyRepository;
-import com.nihongo.admin.service.LevelService;
-import com.nihongo.admin.service.VocabularyService;
+import com.nihongo.admin.service.impl.CategoryVocabularyImpl;
+import com.nihongo.admin.service.impl.LevelServiceImpl;
+import com.nihongo.admin.service.impl.VocabularyServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,8 @@ public class HomeController {
     public static final Logger logger = LogManager.getLogger(VocabularyController.class);
 
     @Autowired
-    LevelService levelService;
-    @Autowired
-    VocabularyService vocabularyService;
+    LevelServiceImpl levelService;
 
-    @Autowired
-    VocabularyRepository vocabularyRepository;
     @GetMapping("/admin")
     public String index(Model model){
 
@@ -35,18 +32,8 @@ public class HomeController {
     public String test(Model model){
 
 
-        return "test";
+        return "category_vocabulary";
     }
-    @GetMapping("/admin/vocabularies/{level}")
-    public String vocabularyByLevel(@PathVariable("level") String level, Model model){
-        model.addAttribute("level", level);
 
-        model.addAttribute("listLevel", levelService.findAll());
-
-        model.addAttribute("vocabularies", vocabularyService.getVocabularyByLevel(level));
-
-
-        return "vocabulary";
-    }
 
 }
