@@ -1,0 +1,41 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments :: head"/>
+    <style>
+    a {
+          color: inherit;
+         }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div th:replace="fragments :: menu"/>
+
+    <div class="row">
+
+        <div class="col-sm-6 col-md-4" th:each="a : ${listCateVocabularies}" style="padding:15px;">
+            <div class="card text-center" style="width: 18rem;padding">
+                <div class="card-body">
+                    <a th:href="@{/admin/vocabularies/{categoryVocabulary}/{level}/page/{page}(level=${a.level},categoryVocabulary=${a.name},page=1)}">
+                        <h5 class="card-title" th:text="${a.title}"></h5>
+                    </a>
+                    <p class="card-text" th:text="${a.description}"></p>
+                    <a th:href="@{/admin/vocabularies/{categoryVocabulary}/{level}/page/{page}(level=${a.level},categoryVocabulary=${a.name},page=1)}"
+                       class="btn btn-secondary">Bắt đầu</a>
+                </div>
+            </div>
+            <!--</div>-->
+        </div>
+
+
+        <!--</div>-->
+
+    </div>
+    <div class="footer" th:replace="fragments :: footer"/>
+
+</div>
+</body>

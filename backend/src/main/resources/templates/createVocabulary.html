@@ -1,0 +1,133 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments :: head"/>
+
+
+</head>
+
+<body>
+
+<div class="container">
+    <div th:replace="fragments :: menu"/>
+
+    <div>
+        <h1 class="center">Thêm từ vựng</h1>
+    </div>
+
+    <div style="heigth:100%">
+        <form  th:action="@{/admin/vocabulary/save}" th:object="${vocabulary}"
+              style="max-width: 700px; margin: 0 auto" method="post"onsubmit="return checkWordUnique(this);">
+            <input type="hidden" th:field="*{id}">
+
+            <div class="border border-secondary rounded p-3">
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Từ vựng:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" th:field="*{word}" maxlength="128"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Hán việt:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" th:field="*{kanJ}" maxlength="128"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Cách đọc:</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="*{read}" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Ý nghĩa:</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="*{mean}" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Audio:</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="*{audio}" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Ví dụ:</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" th:field="*{example}" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Level:</label>
+                    <div class="col-sm-8">
+                        <select th:field="*{level}" class="form-control">
+                            <option value="">Select</option>
+                            <option th:each="level:${listLevel}" th:value="${level.level}"
+                                    th:text="${level.level}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Category Vocabulary:</label>
+                    <div class="col-sm-8">
+                        <select th:field="*{categoryVocabulary}" class="form-control">
+                            <option value="">Select</option>
+                            <option th:each="a:${listCateVocabulary}" th:value="${a}"
+                                    th:text="${a}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <input type="submit" value="Save" class="btn btn-dark m-3"/>
+                    <input  type="button" value="Cancel" onclick = "history.back()" class="btn btn-secondary" id="buttonCancel"/>
+                </div>
+            </div>
+        </form>
+
+        <div th:replace="fragments :: modal"/>
+
+    </div>
+    <div th:replace="fragments :: footer"/>
+
+</div>
+
+
+<script type="text/javascript">
+
+    function checkWordUnique(form){
+        url = "[[@{/admin/api/vocabulary/check_word}]]";
+        var word = $("#word").val();
+        var id = $("#id").val();
+        params = {id:id,word:word};
+        var titleError = "Error";
+        var titleWarning = "Warning";
+        var messageWarning = "Vocabulary \" " +word+" \" already exists"
+        var messageErrorResponse = "Unknown response from sever";
+        var messageErrorSever = "Can't connect to server";
+        $.post(url,params,function(res){
+        if(res == "OK"){
+            form.submit();
+        }else if (res == "Duplicate"){
+            showModal(titleWarning,messageWarning);
+        }else{
+            showModal(titleError,messageErrorResponse);
+        }
+        }).fail(function(){
+            showModal(titleError,messageErrorSever);
+
+        });
+        return false;
+    }
+    function showModal(title,message){
+          $("#modalTitle").text(title);
+         $("#modalBody").text(message);
+         $("#modal").modal();
+    }
+</script>
+</body>

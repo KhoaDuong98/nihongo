@@ -1,0 +1,256 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments :: head"/>
+
+    <style>
+        .center {
+          text-align: center;
+          border: 3px solid black;
+        }
+        a {
+          color: inherit;
+         }
+
+         <style>
+body {
+	font-family: 'Varela Round', sans-serif;
+}
+.modal-confirm {
+	color: #636363;
+	width: 400px;
+}
+.modal-confirm .modal-content {
+	padding: 20px;
+	border-radius: 5px;
+	border: none;
+	text-align: center;
+	font-size: 14px;
+}
+.modal-confirm .modal-header {
+	border-bottom: none;
+	position: relative;
+}
+.modal-confirm h4 {
+	text-align: center;
+	font-size: 26px;
+	margin: 30px 0 -10px;
+}
+.modal-confirm .close {
+	position: absolute;
+	top: -5px;
+	right: -2px;
+}
+.modal-confirm .modal-body {
+	color: #999;
+}
+.modal-confirm .modal-footer {
+	border: none;
+	text-align: center;
+	border-radius: 5px;
+	font-size: 13px;
+	padding: 10px 15px 25px;
+}
+.modal-confirm .modal-footer a {
+	color: #999;
+}
+.modal-confirm .icon-box {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	border-radius: 50%;
+	z-index: 9;
+	text-align: center;
+	border: 3px solid #181717;
+}
+.modal-confirm .icon-box i {
+	color: #1b1a1a;
+	font-size: 46px;
+	display: inline-block;
+	margin-top: 13px;
+}
+.modal-confirm .btn, .modal-confirm .btn:active {
+	color: #fff;
+	border-radius: 4px;
+	background: #60c7c1;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	min-width: 120px;
+	border: none;
+	min-height: 40px;
+	border-radius: 3px;
+	margin: 0 5px;
+}
+.modal-confirm .btn-secondary {
+	background: #c1c1c1;
+}
+.modal-confirm .btn-secondary:hover, .modal-confirm .btn-secondary:focus {
+	background: #a8a8a8;
+}
+.modal-confirm .btn-dark {
+	background: #3d3c3c;
+}
+.modal-confirm .btn-dark:hover, .modal-confirm .btn-dark:focus {
+	background: #0c0c0c;
+}
+.trigger-btn {
+	display: inline-block;
+	margin: 100px auto;
+}
+
+    </style>
+
+
+</head>
+
+<body>
+<header>
+    <div th:replace="fragments :: menu"/>
+
+</header>
+
+<div class="container-fluid">
+    <div>
+        <h1 class="center">Từ vựng [[${categoryVocabulary}]] [[${level}]]</h1>
+
+    </div>
+
+    <div style="padding:10px">
+        <a href="/Nihongo/admin/vocabulary/add" class="btn btn-secondary">Thêm từ vựng</a>
+    </div>
+
+    <div th:if="${message != null}" class="alert alert-success text-center">[[${message}]]</div>
+
+    <div style="padding-top: 15px">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th></th>
+                <th class="col-sm-2">Từ vựng</th>
+                <th class="col-sm-2">Cách đọc</th>
+                <th class="col-sm-2">Hán việt</th>
+                <th class="col-sm-2">Ý nghĩa</th>
+                <th class="col-sm-3">Ví dụ</th>
+                <th class="col-sm-1"></th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="vocabulary : ${vocabularies}">
+                <audio th:id="${vocabulary.id}">
+                    <source th:src="${vocabulary.audio}" type="audio/ogg">
+                </audio>
+                <th>
+                    <button th:id="'buttonAuio' + ${vocabulary.id}" th:with="value='myAudio' + ${vocabulary.id}"
+                            th:value="${value}" class="bi bi-play-circle-fill btn btn-secondary"
+                            th:onclick="'playAudio('+ ${vocabulary.id} +')'" type="button">
+                    </button>
+                </th>
+                <td>
+                    <h5>
+                        <small th:text="${vocabulary.word}"></small>
+                    </h5>
+
+                </td>
+                <td th:text="${vocabulary.read}"></td>
+                <td th:text="${vocabulary.kanJ}"></td>
+                <td th:text="${vocabulary.mean}"></td>
+                <td th:text="${vocabulary.example}"></td>
+                <td>
+                    <h4>
+                        <a th:href="@{/admin/vocabularies/{level}/edit/vocabularyId/{vocabularyId}(level=${level},vocabularyId=${vocabulary.id})}"
+                           class="bi bi-pencil-square"></a>
+                        &nbsp;&nbsp;&nbsp;
+                        <a th:word="${vocabulary.word}" th:href="@{/admin/vocabularies/{level}/delete/vocabularyId/{vocabularyId}(level=${level},vocabularyId=${vocabulary.id})}"
+                           class="bi bi-x-square-fill deleteVocabulary"></a>
+                    </h4>
+                </td>
+
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header flex-column">
+                    <div class="icon-box">
+                        <i class="bi bi-x-lg"></i>
+                    </div>
+                    <h4 class="modal-title w-100">Are you sure?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p id="textConfirm"></p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <a type="button" style="color: #fff;" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+                    <a id="confirm" href="" style="color: #fff;" type="button" class="btn btn-dark">Delete</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="fragments :: footer"/>
+
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".deleteVocabulary").click(function(e){
+    e.preventDefault();
+    currentIndex = $(this).attr("href");
+    word = $(this).attr("word");
+    var messConfirm =  "Do you want to delete vocabulary \" " +word+" \" ?"
+    $("#textConfirm").text(messConfirm);
+    $("#confirm").attr("href",currentIndex)
+    $("#myModal").modal();
+  });
+});
+
+function replaceClass(id, oldClass, newClass) {
+    var elem = $(`#${id}`);
+    if (elem.hasClass(oldClass)) {
+        elem.removeClass(oldClass);
+    }
+    elem.addClass(newClass);
+}
+
+
+    var list = [];
+    var i=0;
+    var pause = "bi bi-pause-circle-fill btn btn-secondary";
+    var play = "bi bi-play-circle-fill btn btn-secondary";
+function playAudio(value) {
+
+           list.push(value);
+
+         var x = document.getElementById(value);
+              console.log(list[list.length-1]);
+               console.log(list.toString());
+                prevIndex = list[list.length-2];
+             if(x.paused){
+                if(list.length >=2 & prevIndex != value){
+                    y = document.getElementById(prevIndex);
+                    y.pause();
+                    y.currentTime = 0
+                    replaceClass("buttonAuio"+prevIndex, pause, play);
+
+
+                }
+              x.play();
+               replaceClass("buttonAuio"+value,play,pause);
+             }else{
+                x.pause();
+                x.currentTime = 0
+                replaceClass("buttonAuio"+value,pause,play);
+      }
+}
+
+
+
+
+</script>
+</body>

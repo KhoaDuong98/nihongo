@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+   <div th:fragment="head">
+       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+       <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+
+       <title>Home - Nihongo Admin</title>
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+       <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+       <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+       <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+       <link rel="stylesheet" type="text/css" th:href="@{/styles/css.css}"/>
+       <link rel="stylesheet" type="text/css" th:href="@{/styles/test.css}"/>
+
+       <style>
+        .center {
+          text-align: center;
+        }
+        ol li {
+            list-style: none !important;
+        }
+
+    </style>
+   </div>
+</head>
+<body>
+<div th:fragment="menu">
+    <nav class="menu">
+        <ol>
+            <li class="menu-item"><a href="/Nihongo/admin">Admin Home</a></li>
+
+            <li class="menu-item">
+                <a href="#0">Từ Vựng</a>
+                <ol class="sub-menu">
+
+                    <li class="menu-item" th:each="level:${listLevel}"><a style="color:white" th:href="@{/admin/vocabularies/{level}(level=${level.level})}" th:text="${level.level}"></a></li>
+
+                </ol>
+            </li>
+            <li class="menu-item">
+                <a href="#0">Ngữ Pháp</a>
+                <ol class="sub-menu">
+
+                </ol>
+            </li>
+
+            <li class="menu-item">
+                <a href="#0">Nghe Hiểu</a>
+                <ol class="sub-menu">
+
+                </ol>
+            </li>
+        </ol>
+    </nav>
+</div>
+<div th:fragment ="modal">
+    <div class="modal fade text-center" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Warning</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span id="modalBody"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="footer">
+    <footer class="bg-dark text-center text-white">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <!-- Facebook -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                ><i class="bi bi-facebook"></i>
+                </a>
+
+
+                <!-- Google -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                ><i class="bi bi-google"></i>
+                </a>
+
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2020 Copyright:
+            <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+</div>
+</body>
+</html>
