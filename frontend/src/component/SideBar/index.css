@@ -1,0 +1,16 @@
+.text{
+    margin-left: 30px;
+    color: white;
+    text-decoration: none;
+    margin-top: 5px;
+}
+button.MuiButtonBase-root.MuiTab-root.MuiTab-textColorPrimary.Mui-selected.css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+    color: white;
+    background-color: #661366;
+}
+.css-1aquho2-MuiTabs-indicator {
+  
+    background-color: purple;
+    border-style: solid;
+    border-color: purple;
+}
