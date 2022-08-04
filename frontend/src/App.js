@@ -4,8 +4,13 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route, Routes } from 'react-router-dom';
 
 import VocabularyFeature from './features/Vocabulary';
+import { useEffect } from 'react';
 
 function App() {
+
+  useEffect(() => {
+    document.title = "This is a title"
+  }, [])
 
   return (
     <div className="App">
