@@ -35,6 +35,7 @@ button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeLarge.Mui
 svg.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiPaginationItem-icon.css-n8417t-MuiSvgIcon-root-MuiPaginationItem-icon{
     color: purple;
 }
+
 .MuiFormControl-root.MuiTextField-root.css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
     width: 50%;
     margin: 20px;
@@ -72,4 +73,56 @@ button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeLarge.Mui
 .MuiOutlinedInput-root.MuiInputBase-root.MuiInputBase-colorPrimary.Mui-focused.MuiInputBase-formControl.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root{
     color: purple;
     font-size: 1.5rem;
+}
+
+
+/* -------------------------------------------------------------------------------------- */
+
+.MuiFormControl-root.MuiTextField-root.css-i44wyl{
+    width: 50%;
+    margin: 20px;
+}
+
+
+fieldset.MuiOutlinedInput-notchedOutline.css-igs3ac {
+    border-color: rgb(240, 229, 240);
+    border-width: 2px;
+}
+.css-1v4ccyo:hover fieldset.MuiOutlinedInput-notchedOutline.css-igs3ac{
+    border-color: purple;
+}
+/* .css-1v4ccyo:focus fieldset.MuiOutlinedInput-notchedOutline.css-igs3ac{
+    border-color: purple;
+} */
+.css-1v4ccyo.Mui-focused fieldset.MuiOutlinedInput-notchedOutline.css-igs3ac {
+    border-color: purple;
+    border-width: 2px;
+}
+
+.MuiOutlinedInput-root.MuiInputBase-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.css-1v4ccyo {
+    font-size: 1.2rem;
+    color: purple;
+}
+button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeLarge.MuiPaginationItem-outlined.MuiPaginationItem-rounded.Mui-selected.MuiPaginationItem-page.css-189vk5p {
+    background: purple;
+    color: white;
+}
+button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeLarge.MuiPaginationItem-outlined.MuiPaginationItem-rounded.MuiPaginationItem-page.css-189vk5p {
+    color: purple;
+    border: 2px solid purple;
+}
+
+
+button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeLarge.MuiPaginationItem-outlined.MuiPaginationItem-rounded.MuiPaginationItem-page.css-189vk5p:hover{
+    background: purple;
+    color: white;
+}
+svg.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiPaginationItem-icon.css-1qz46so {
+    color: purple;
+}
+button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeLarge.MuiPaginationItem-outlined.MuiPaginationItem-rounded.MuiPaginationItem-previousNext.css-189vk5p:hover{
+    background-color: purple;
+}
+button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeLarge.MuiPaginationItem-outlined.MuiPaginationItem-rounded.MuiPaginationItem-previousNext.css-189vk5p:hover svg.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiPaginationItem-icon.css-1qz46so{
+    color: white;
 }

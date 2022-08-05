@@ -5,11 +5,12 @@ import { BrowserRouter as Router, Switch, Route, Routes } from 'react-router-dom
 
 import VocabularyFeature from './features/Vocabulary';
 import { useEffect } from 'react';
+import NotFound from './features/Vocabulary/page/NotFound';
 
 function App() {
 
   useEffect(() => {
-    document.title = "This is a title"
+    document.title = 'Nihongo'
   }, [])
 
   return (
@@ -17,6 +18,8 @@ function App() {
       <Router>
         {/* <Sidebar /> */}
         <VocabularyFeature />
+
+
 
       </Router>
 

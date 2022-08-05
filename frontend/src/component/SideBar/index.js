@@ -1,13 +1,15 @@
 
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes, useMatch } from 'react-router-dom';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { SidebarData } from './SidebarData';
 import SubMenu from './SubMenu';
 import { IconContext } from 'react-icons/lib';
 import './index.css'
+import TabBar from '../../features/Vocabulary/page/Tab';
+import NotFound from '../../features/Vocabulary/page/NotFound';
 
 const Nav = styled.div`
   background: #661366;
@@ -43,30 +45,61 @@ const SidebarNav = styled.nav`
 const SidebarWrap = styled.div`
   width: 100%;
 `;
-
 const Sidebar = (props) => {
     const [sidebar, setSidebar] = useState(false);
     const { onclickLevel } = props
-
-    const showSidebar = () => setSidebar(!sidebar);
-    const handleClick = (param) => {
-        if (!onclickLevel) return;
-        onclickLevel(param)
+    const [params, setParams] = React.useState({
+        categoryVocabulary: 'TANGO',
+        level: '',
+        word: '',
+        page: 1
     }
-    // const cateVocabulary = [
-    //     {
-    //         id: 1,
-    //         name: 'TANGO',
-    //     },
-    //     {
-    //         id: 2,
-    //         name: 'MIMIKARA',
-    //     },
-    //     {
-    //         id: 3,
-    //         name: 'SATOME',
-    //     }
-    // ]
+    );
+    const showSidebar = () => setSidebar(!sidebar);
+    const handleClick = (level) => {
+        setParams({
+            ...params,
+            level
+        })
+    }
+    console.log(params)
+    const cateVocabulary = [
+        {
+            id: 1,
+            name: 'TANGO',
+        },
+        {
+            id: 2,
+            name: 'MIMIKARA',
+        },
+        {
+            id: 3,
+            name: 'SOUMATOME',
+        }
+    ]
+    const handleOnChangeTab = (tabName) => {
+        setParams({
+            ...params,
+            categoryVocabulary: tabName
+        })
+    }
+
+    const handleOnChangePage = (page) => {
+        console.log(page)
+        setParams({
+            ...params,
+            page
+        })
+    }
+    const handleSearch = (word) => {
+        setParams({
+            ...params,
+            word,
+            page: 1
+        })
+    }
+    const tabBarURL = <TabBar search={handleSearch} params={params} onChangeTab={handleOnChangeTab} onChangePage={handleOnChangePage} cateVocabulary={cateVocabulary} />
+    const baseURL = '/vocabularies/:level/:book';
 
     return (
         <>
@@ -93,7 +126,11 @@ const Sidebar = (props) => {
                     </SidebarWrap>
                 </SidebarNav>
             </IconContext.Provider>
-
+            <Routes>
+                <Route path={baseURL} element={tabBarURL} />
+                <Route path={`${baseURL}/page/:page`} element={tabBarURL} />
+                <Route path={`${baseURL}/search/:search`} element={tabBarURL} />
+            </Routes>
 
         </>
     );

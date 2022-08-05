@@ -11,12 +11,14 @@ export default function TabBar(props) {
     const [count, setCount] = React.useState()
     const [totalElements, setTotalElements] = React.useState()
 
-    const { book, level, page, search } = useParams()
-    const { cateVocabulary } = props
+    const { book, level, page } = useParams()
+    const { cateVocabulary, params, onChangeTab, onChangePage, search } = props
     const [vocabularies, setVocabularies] = React.useState([])
-
-
-
+    const newParams = {
+        ...params,
+        categoryVocabulary: book,
+        level: level
+    }
 
     const checkBook = (book) => {
         if (book === 'TANGO') {
@@ -28,68 +30,28 @@ export default function TabBar(props) {
         }
     }
     const [value, setValue] = React.useState(checkBook(book));
-    const [params, setParams] = React.useState({
-        categoryVocabulary: book,
-        level: level,
-        word: search ?? '',
-        page: page ?? 1
-    });
-    console.log(page)
-    console.log(params)
-    React.useEffect(() => {
-        setParams({
-            ...params,
-            level: level
-
-        })
-    }, [level])
-
-
-    React.useEffect(() => {
-        setParams({
-            ...params,
-            categoryVocabulary: book
-
-        })
-    }, [book])
 
     React.useEffect(() => {
         setValue(checkBook(book))
-        setParams({
-            ...params,
-            categoryVocabulary: book,
-
-            level: level,
-
-        })
     }, [book])
 
     const handleChange = (event, index) => {
-        setParams({
-            ...params,
-            level: level,
-            categoryVocabulary: book
-
-        })
         setValue(index);
 
     };
     const handleChangeTab = (name) => {
 
-        setParams({
-            ...params,
-            level: level,
-            categoryVocabulary: name,
-        })
+        onChangeTab(name)
+
         navigate(`/vocabularies/${level}/${name}`);
 
 
     };
     React.useEffect(() => {
-        const fetchVocabularies = async () => {
-            console.log(params)
 
-            const data = await vocabularyApi.getAll(params);
+        const fetchVocabularies = async () => {
+
+            const data = await vocabularyApi.getAll(newParams);
             console.log(data.vocabularies)
             setCount(data.totalPage)
             setTotalElements(data.totalElements)
@@ -102,23 +64,16 @@ export default function TabBar(props) {
 
     const data = vocabularies.vocabularies
     const handleChangePage = (page) => {
-        setParams({
-            ...params,
-            page: page
-        })
+        onChangePage(page);
         navigate(`/vocabularies/${level}/${book}/page/${page}`);
 
     }
     const handleSearch = (word) => {
-
-        setParams({
-            ...params,
-            word: word,
-            page: 1
-
-        })
-        console.log(word)
+        search(word)
     }
+    console.log('count' + count)
+    console.log('page' + page)
+
     return (
         <>
 
@@ -126,11 +81,10 @@ export default function TabBar(props) {
                 <Tabs value={value} onChange={handleChange} centered>
                     {cateVocabulary.map(item => (
                         <Tab key={item.id} label={item.name} onClick={() => handleChangeTab(item.name)} />
-
                     ))}
                 </Tabs>
             </Box>
-            <Vocabulary search={handleSearch} pageParam={page} onChangePage={handleChangePage} totalElements={totalElements} count={count} vocabularies={data} params={params} />
+            <Vocabulary search={handleSearch} pageParam={page} onPageChange={handleChangePage} totalElements={totalElements} count={count} vocabularies={data} params={newParams} />
         </>
 
     );

@@ -6,14 +6,13 @@ Vocabulary.propTypes = {
 
 };
 
-function Vocabulary({ vocabularies, count, totalElements, onChangePage, search, pageParam, params }) {
+function Vocabulary({ vocabularies, count, totalElements, onPageChange, search, pageParam, params }) {
     let [page, setPage] = useState(Number(pageParam) || 1);
     const PER_PAGE = 10;
     const _DATA = usePagination(totalElements, PER_PAGE);
     const typingTimeOut = useRef(null)
-    console.log(params.categoryVocabulary)
     const handleChange = (e, p) => {
-        onChangePage(p)
+        onPageChange(p)
         setPage(p);
         _DATA.jump(p);
 
@@ -30,6 +29,7 @@ function Vocabulary({ vocabularies, count, totalElements, onChangePage, search, 
             setPage(1)
         }, 300);
     };
+
     return (
         <Box>
             <TextField
