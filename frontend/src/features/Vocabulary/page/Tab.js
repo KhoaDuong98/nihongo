@@ -12,14 +12,16 @@ export default function TabBar(props) {
     const [totalElements, setTotalElements] = React.useState()
 
     const { book, level, page } = useParams()
-    const { cateVocabulary, params, onChangeTab, onChangePage, search } = props
+    const { cateVocabulary, params, onChangeTab, onChangePage, search, goToPage } = props
     const [vocabularies, setVocabularies] = React.useState([])
     const newParams = {
         ...params,
         categoryVocabulary: book,
-        level: level
-    }
+        level,
 
+
+    }
+    console.log(newParams)
     const checkBook = (book) => {
         if (book === 'TANGO') {
             return 0;
@@ -65,14 +67,16 @@ export default function TabBar(props) {
     const data = vocabularies.vocabularies
     const handleChangePage = (page) => {
         onChangePage(page);
-        navigate(`/vocabularies/${level}/${book}/page/${page}`);
+        // navigate(`/vocabularies/${level}/${book}/page/${page}`);
 
     }
     const handleSearch = (word) => {
         search(word)
     }
-    console.log('count' + count)
-    console.log('page' + page)
+
+    const handleGoToPage = (page) => {
+        goToPage(page)
+    }
 
     return (
         <>
@@ -84,7 +88,7 @@ export default function TabBar(props) {
                     ))}
                 </Tabs>
             </Box>
-            <Vocabulary search={handleSearch} pageParam={page} onPageChange={handleChangePage} totalElements={totalElements} count={count} vocabularies={data} params={newParams} />
+            <Vocabulary goToPage={handleGoToPage} search={handleSearch} pageParam={page} onPageChange={handleChangePage} totalElements={totalElements} count={count} vocabularies={data} params={newParams} />
         </>
 
     );

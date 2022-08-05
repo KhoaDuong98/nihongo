@@ -6,11 +6,12 @@ Vocabulary.propTypes = {
 
 };
 
-function Vocabulary({ vocabularies, count, totalElements, onPageChange, search, pageParam, params }) {
+function Vocabulary({ vocabularies, count, totalElements, onPageChange, search, pageParam, params, goToPage }) {
     let [page, setPage] = useState(Number(pageParam) || 1);
     const PER_PAGE = 10;
     const _DATA = usePagination(totalElements, PER_PAGE);
     const typingTimeOut = useRef(null)
+    const typingTimeOut1 = useRef(null)
     const handleChange = (e, p) => {
         onPageChange(p)
         setPage(p);
@@ -19,7 +20,8 @@ function Vocabulary({ vocabularies, count, totalElements, onPageChange, search, 
     };
 
     let inputHandler = (e) => {
-        const word = e.target.value
+        const word = e.target.value.toLowerCase();
+        console.log(word)
         if (!search) return
         if (typingTimeOut.current) {
             clearTimeout(typingTimeOut.current);
@@ -29,6 +31,17 @@ function Vocabulary({ vocabularies, count, totalElements, onPageChange, search, 
             setPage(1)
         }, 300);
     };
+    const handleChangePage = (e) => {
+        const page = e.target.value;
+        if (typingTimeOut1.current) {
+            clearTimeout(typingTimeOut1.current)
+        }
+        typingTimeOut1.current = setTimeout(() => {
+            setPage(Number(page))
+            goToPage(Number(page))
+        }, 300);
+        console.log(page)
+    }
 
     return (
         <Box>
@@ -38,8 +51,6 @@ function Vocabulary({ vocabularies, count, totalElements, onPageChange, search, 
                 variant="outlined"
                 label="Search"
             />
-
-
 
             <table className="table table-hover">
                 {params.categoryVocabulary === 'TANGO' && (
@@ -115,7 +126,14 @@ function Vocabulary({ vocabularies, count, totalElements, onPageChange, search, 
                 </tbody>
             </table>
             <Stack spacing={2}>
-
+                <TextField
+                    value={page}
+                    className='input_page'
+                    id="outlined-basic"
+                    onChange={handleChangePage}
+                    variant="outlined"
+                    label="Go to page"
+                />
                 <Pagination
                     size="large"
                     count={count}

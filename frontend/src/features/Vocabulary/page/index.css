@@ -126,3 +126,13 @@ button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeLarge.Mui
 button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeLarge.MuiPaginationItem-outlined.MuiPaginationItem-rounded.MuiPaginationItem-previousNext.css-189vk5p:hover svg.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiPaginationItem-icon.css-1qz46so{
     color: white;
 }
+
+.MuiFormControl-root.MuiTextField-root.input_page.css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+    width: 15%;
+    margin-bottom: 5px;
+}
+nav.MuiPagination-root.MuiPagination-outlined.css-1oj2twp-MuiPagination-root {
+    margin: 0;
+    margin-top: 16px;
+    margin-bottom: 20px;
+}

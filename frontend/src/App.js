@@ -19,8 +19,6 @@ function App() {
         {/* <Sidebar /> */}
         <VocabularyFeature />
 
-
-
       </Router>
 
     </div>

@@ -47,7 +47,6 @@ const SidebarWrap = styled.div`
 `;
 const Sidebar = (props) => {
     const [sidebar, setSidebar] = useState(false);
-    const { onclickLevel } = props
     const [params, setParams] = React.useState({
         categoryVocabulary: 'TANGO',
         level: '',
@@ -98,7 +97,13 @@ const Sidebar = (props) => {
             page: 1
         })
     }
-    const tabBarURL = <TabBar search={handleSearch} params={params} onChangeTab={handleOnChangeTab} onChangePage={handleOnChangePage} cateVocabulary={cateVocabulary} />
+    const handleGoToPage = (page) => {
+        setParams({
+            ...params,
+            page
+        })
+    }
+    const tabBarURL = <TabBar goToPage={handleGoToPage} search={handleSearch} params={params} onChangeTab={handleOnChangeTab} onChangePage={handleOnChangePage} cateVocabulary={cateVocabulary} />
     const baseURL = '/vocabularies/:level/:book';
 
     return (
@@ -128,8 +133,10 @@ const Sidebar = (props) => {
             </IconContext.Provider>
             <Routes>
                 <Route path={baseURL} element={tabBarURL} />
-                <Route path={`${baseURL}/page/:page`} element={tabBarURL} />
-                <Route path={`${baseURL}/search/:search`} element={tabBarURL} />
+                {/* <Route path={`${baseURL}/page/:page`} element={tabBarURL} /> */}
+                {/* <Route path={`${baseURL}/search/:search`} element={tabBarURL} /> */}
+                <Route path={`${baseURL}/*`} element={<NotFound />} />
+
             </Routes>
 
         </>
