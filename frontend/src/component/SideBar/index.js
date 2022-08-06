@@ -10,7 +10,7 @@ import { IconContext } from 'react-icons/lib';
 import './index.css'
 // import TabBar from '../../features/Vocabulary/page/Tab';
 import NotFound from '../../features/Vocabulary/page/NotFound';
-import VocabularyLoading from '../../features/Vocabulary/components/VocabularyLoading';
+import VocabularyLoading from '../../features/Vocabulary/components/LoadingPage';
 const LazyTabBar = React.lazy(() => import('../../features/Vocabulary/page/Tab'));
 
 const Nav = styled.div`
