@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Switch, Route, Routes } from 'react-router-dom
 
 import VocabularyFeature from './features/Vocabulary';
 import { useEffect } from 'react';
-import NotFound from './features/Vocabulary/page/NotFound';
 
 function App() {
 
