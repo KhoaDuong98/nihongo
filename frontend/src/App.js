@@ -10,7 +10,7 @@ import NotFound from './features/Vocabulary/page/NotFound';
 function App() {
 
   useEffect(() => {
-    document.title = 'Nihongo'
+    document.title = 'Nihongoooo'
   }, [])
 
   return (
