@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-    baseURL: 'http://localhost:8080/nihongo/admin/api',
+    baseURL: 'https://api-nihongo.herokuapp.com/nihongo/admin/api',
     headers: {
         'Content-Type': 'application/json',
     },
