@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-@CrossOrigin("http://localhost:3001")
+@CrossOrigin("https://khoa-nihongo.herokuapp.com")
 
 @RestController
 @RequestMapping("/admin/api")
