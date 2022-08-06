@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 function App() {
 
   useEffect(() => {
-    document.title = 'Nihongoooo'
+    document.title = 'Nihongo'
   }, [])
 
   return (
