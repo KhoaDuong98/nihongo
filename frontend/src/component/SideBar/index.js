@@ -8,8 +8,10 @@ import { SidebarData } from './SidebarData';
 import SubMenu from './SubMenu';
 import { IconContext } from 'react-icons/lib';
 import './index.css'
-import TabBar from '../../features/Vocabulary/page/Tab';
+// import TabBar from '../../features/Vocabulary/page/Tab';
 import NotFound from '../../features/Vocabulary/page/NotFound';
+import VocabularyLoading from '../../features/Vocabulary/components/VocabularyLoading';
+const LazyTabBar = React.lazy(() => import('../../features/Vocabulary/page/Tab'));
 
 const Nav = styled.div`
   background: #661366;
@@ -103,7 +105,10 @@ const Sidebar = (props) => {
             page
         })
     }
-    const tabBarURL = <TabBar goToPage={handleGoToPage} search={handleSearch} params={params} onChangeTab={handleOnChangeTab} onChangePage={handleOnChangePage} cateVocabulary={cateVocabulary} />
+    const tabBarURL =
+        <React.Suspense fallback={<VocabularyLoading />}>
+            <LazyTabBar goToPage={handleGoToPage} search={handleSearch} params={params} onChangeTab={handleOnChangeTab} onChangePage={handleOnChangePage} cateVocabulary={cateVocabulary} />
+        </React.Suspense>
     const baseURL = '/vocabularies/:level/:book';
 
     return (

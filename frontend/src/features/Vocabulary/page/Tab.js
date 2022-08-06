@@ -2,9 +2,12 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Vocabulary from './Vocabulary';
 import vocabularyApi from '../../../api/VocabularyApi';
 import { useParams, useNavigate, useMatch } from 'react-router-dom';
+import VocabularyLoading from '../components/LoadingPage';
+import { CircularProgress } from '@mui/material';
+import LoadingPage from '../components/LoadingPage';
+const LazyVocabulary = React.lazy(() => import('./Vocabulary'));
 
 export default function TabBar(props) {
     let navigate = useNavigate();
@@ -21,7 +24,8 @@ export default function TabBar(props) {
 
 
     }
-    console.log(newParams)
+    const [loading, setLoading] = React.useState(true);
+
     const checkBook = (book) => {
         if (book === 'TANGO') {
             return 0;
@@ -49,19 +53,25 @@ export default function TabBar(props) {
 
 
     };
+
+    // const sleep = (milliseconds) => {
+    //     return new Promise(resolve => setTimeout(resolve, milliseconds))
+    // }
     React.useEffect(() => {
+        (async () => {
+            try {
+                window.scrollTo(0, 0)
+                const data = await vocabularyApi.getAll(newParams);
+                console.log(data.vocabularies)
+                setCount(data.totalPage)
+                setTotalElements(data.totalElements)
+                setVocabularies(data)
+            } catch (error) {
+                console.log('Failed to fetch vocabularies list: ', error);
+            }
 
-        const fetchVocabularies = async () => {
-
-            const data = await vocabularyApi.getAll(newParams);
-            console.log(data.vocabularies)
-            setCount(data.totalPage)
-            setTotalElements(data.totalElements)
-            setVocabularies(data)
-
-        };
-        fetchVocabularies();
-
+            setLoading(false);
+        })();
     }, [params]);
 
     const data = vocabularies.vocabularies
@@ -77,6 +87,7 @@ export default function TabBar(props) {
     const handleGoToPage = (page) => {
         goToPage(page)
     }
+    console.log(vocabularies)
 
     return (
         <>
@@ -88,7 +99,16 @@ export default function TabBar(props) {
                     ))}
                 </Tabs>
             </Box>
-            <Vocabulary goToPage={handleGoToPage} search={handleSearch} pageParam={page} onPageChange={handleChangePage} totalElements={totalElements} count={count} vocabularies={data} params={newParams} />
+            {loading ? <CircularProgress color="secondary" />
+                : data ?
+                    <React.Suspense fallback={<LoadingPage />}>
+                        <LazyVocabulary goToPage={handleGoToPage} search={handleSearch} pageParam={page} onPageChange={handleChangePage}
+                            totalElements={totalElements} count={count}
+                            vocabularies={data} params={newParams} />
+                    </React.Suspense>
+                    : <h2>Data Not Found</h2>
+            }
+
         </>
 
     );
